@@ -1,29 +1,55 @@
-
-
-
+rectangles = {}
+numRects = 7
+rectWidth = 20
+rectSpacing = 30
+rectY = 400
 
 function love.load(args)
-  rectIsDrawn = 0
-  posX = 100
-  point = {
-    x = 250,
-    y = 250,
-  }
+  for i = 1, numRects do
+    local newRect = {}
+    newRect.h = love.math.random(1, 200)
+    table.insert(rectangles, newRect)
+  end
+
+  -- point = {
+    -- x = 250,
+    -- y = 250,
+  -- }
 end
 
 function love.draw()
-  for i = 1, 5 do
+  love.graphics.setLineWidth(2)
+  love.graphics.line(0, rectY, 500, rectY)
+  
+  -- the width of the rectanlges with their spacing
+  rectBlockWidth = ((rectWidth + rectSpacing) * #rectangles) - rectSpacing
+  -- the first x coordinate given the width
+  initialX = (love.graphics.getWidth() - rectBlockWidth) / 2
+  
+  for i = 1, #rectangles do
+    local rect = rectangles[i]
+    local x = initialX + (i-1) * (rectWidth + rectSpacing)
+    love.graphics.rectangle("line", x, rectY - rect.h, rectWidth, rect.h)
+  end
+end
 
-    local height = love.math.random(1, 200)
-    posX = posX + 0.1
 
-    love.graphics.line(0, 250, 500, 250)
-    love.graphics.setLineWidth(2)
-    love.graphics.rectangle("line", posX, 250 - height, 20, height) --height measure places y coord on bottom-left corner
-    love.graphics.setLineWidth(2)
+-- remakes heights
+function newHeights()
+  rectangles = {}
+  for i = 1, numRects do
+    local newRect = {}
+    newRect.h = love.math.random(1, 200)
+    table.insert(rectangles, newRect)
+  end
+end
 
-    if posX == 200 then
-      break
-    end
+
+-- handles keypresses
+function love.keypressed(key)
+  if key == "escape" then
+    love.event.quit(0)
+  elseif key == "space" then
+    newHeights()
   end
 end

@@ -1,8 +1,13 @@
-
-
-
+rectangles = {}
+numRects = 5
 
 function love.load(args)
+  for i = 1, numRects do
+    local newRect = {}
+    newRect.h = love.math.random(1, 200)
+    table.insert(rectangles, newRect)
+  end
+
   rectIsDrawn = 0
   posX = 100
   point = {
@@ -25,5 +30,12 @@ function love.draw()
     if posX == 200 then
       break
     end
+  end
+end
+
+
+function love.keypressed(key)
+  if key == "escape" then
+    love.event.quit(0)
   end
 end

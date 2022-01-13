@@ -1,15 +1,11 @@
 rectangles = {}
 numRects = 5
-rectWidth = 20
-rectSpacing = 30
-rectY = 400
+rectWidth = 30
+rectSpacing = 20
+rectY = 450
 
 function love.load(args)
-  for i = 1, numRects do
-    local newRect = {}
-    newRect.h = love.math.random(1, 200)
-    table.insert(rectangles, newRect)
-  end
+  newHeights()
 
   -- point = {
     -- x = 250,
@@ -19,17 +15,16 @@ end
 
 function love.draw()
   love.graphics.setLineWidth(2)
-  love.graphics.line(0, rectY, 500, rectY)
+  love.graphics.line(0, rectY, love.graphics.getWidth(), rectY)
 
   -- the width of the rectanlges with their spacing
   rectBlockWidth = ((rectWidth + rectSpacing) * #rectangles) - rectSpacing
   -- the first x coordinate given the width
   initialX = (love.graphics.getWidth() - rectBlockWidth) / 2
 
-  for i = 1, #rectangles do
-    local rect = rectangles[i]
+  for i, v in ipairs(rectangles) do
     local x = initialX + (i-1) * (rectWidth + rectSpacing)
-    love.graphics.rectangle("line", x, rectY - rect.h, rectWidth, rect.h)
+    love.graphics.rectangle("line", x, rectY - v.h, rectWidth, v.h)
   end
 end
 

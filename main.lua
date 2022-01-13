@@ -1,5 +1,5 @@
 rectangles = {}
-numRects = 7
+numRects = 5
 rectWidth = 20
 rectSpacing = 30
 rectY = 400
@@ -20,12 +20,12 @@ end
 function love.draw()
   love.graphics.setLineWidth(2)
   love.graphics.line(0, rectY, 500, rectY)
-  
+
   -- the width of the rectanlges with their spacing
   rectBlockWidth = ((rectWidth + rectSpacing) * #rectangles) - rectSpacing
   -- the first x coordinate given the width
   initialX = (love.graphics.getWidth() - rectBlockWidth) / 2
-  
+
   for i = 1, #rectangles do
     local rect = rectangles[i]
     local x = initialX + (i-1) * (rectWidth + rectSpacing)
